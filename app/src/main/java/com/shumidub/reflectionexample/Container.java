@@ -2,9 +2,9 @@ package com.shumidub.reflectionexample;
 
 public class Container {
     private String privateString = "privateString";
-    final String finalString;
+    final boolean booleanValue;
 
-    public Container(String finalString) {
-        this.finalString = finalString;
+    public Container(boolean booleanValue) {
+        this.booleanValue = booleanValue;
     }
 }

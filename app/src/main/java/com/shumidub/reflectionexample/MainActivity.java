@@ -2,39 +2,41 @@ package com.shumidub.reflectionexample;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.TextView;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
+import static com.shumidub.reflectionexample.ReflectionAnt.getPrivateField;
+import static com.shumidub.reflectionexample.ReflectionAnt.setNewValueForImmutableField;
+
+@EActivity
 public class MainActivity extends AppCompatActivity {
+
+    @ViewById(R.id.text_view)
+    TextView textView;
+
+    Container container = new Container(false);
+    String privateString;
+    Boolean realBooleanValue;
+    Boolean modifiedBooleanValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Container container = new Container("finalString");
-        String privateString = "";
-        String oldFinalString = "";
+        container = new Container(false);
 
-        try {
-            Field field = container.getClass().getDeclaredField("privateString");
-            field.setAccessible(true);
-            privateString = (String) field.get(container);
+        privateString = (String) getPrivateField(container, "privateString");
+        realBooleanValue = container.booleanValue;
 
-            field = container.getClass().getDeclaredField("finalString");
-            oldFinalString = (String) field.get(container);
-            Field modifiersField = Field.class.getDeclaredField("modifiers");
+        setNewValueForImmutableField(container, "booleanValue", true);
+        modifiedBooleanValue = container.booleanValue;
 
-            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-            String newValue = "NewValue";
-            field.set(null, newValue);
-
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        Log.d("DTAG", "onCreate: " + privateString + " " + oldFinalString + " " + container.finalString);//output 0default
+        textView.setText(String.format("The content of private String is - %s." +
+                        " \n\nThe value of final boolean field is - %s," +
+                        " \nand the value of this field after modification is - %s  ",
+                privateString, realBooleanValue, modifiedBooleanValue));
     }
 }
