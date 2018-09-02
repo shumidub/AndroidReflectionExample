@@ -34,9 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setNewValueForImmutableField(container, "booleanValue", true);
         modifiedBooleanValue = container.booleanValue;
 
-        textView.setText(String.format("The content of private String is - %s." +
-                        " \n\nThe value of final boolean field is - %s," +
-                        " \nand the value of this field after modification is - %s  ",
-                privateString, realBooleanValue, modifiedBooleanValue));
+        textView.setText(String.format(getString(R.string.result_text),
+                privateString, realBooleanValue.toString(), modifiedBooleanValue.toString()));
     }
 }
