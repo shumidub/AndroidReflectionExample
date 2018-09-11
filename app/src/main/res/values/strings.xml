@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">ReflectionExample</string>
-    <string name="result_text">"The content of private String is - %1$s." +
-                        " \n\nThe value of final boolean field is - %2$s," +
-                        " \nand the value of this field after modification is - %3$s  "</string>
+    <string name="result_text">"The content of private String is - %1$s.
+                        \n\nThe value of final boolean field is - %2$s,
+                        \nand the value of this field after modification is - %3$s
+                        \n\nThe first private method return type is - %4$s,
+                        \nand the second private method return type is - %5$s"</string>
 </resources>
