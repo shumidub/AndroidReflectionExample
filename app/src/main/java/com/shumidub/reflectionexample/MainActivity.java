@@ -7,8 +7,8 @@ import android.widget.TextView;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import static com.shumidub.reflectionexample.ReflectionAnt.getPrivateField;
-import static com.shumidub.reflectionexample.ReflectionAnt.setNewValueForImmutableField;
+import static com.shumidub.reflectionexample.ReflectionHelper.getPrivateField;
+import static com.shumidub.reflectionexample.ReflectionHelper.setNewValueForImmutableField;
 
 @EActivity
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
     Container container = new Container(false);
     String privateString;
+    String firstPrivateMethodReturnType;
+    String secondPrivateMethodReturnType;
     Boolean realBooleanValue;
     Boolean modifiedBooleanValue;
 
@@ -34,7 +36,11 @@ public class MainActivity extends AppCompatActivity {
         setNewValueForImmutableField(container, "booleanValue", true);
         modifiedBooleanValue = container.booleanValue;
 
+//        firstPrivateMethodReturnType = getPrivateMethodReturnType(container, "firstPrivateMethod");
+//        secondPrivateMethodReturnType = getPrivateMethodReturnType(container, "secondPrivateMethod");
+
         textView.setText(String.format(getString(R.string.result_text),
-                privateString, realBooleanValue.toString(), modifiedBooleanValue.toString()));
+                privateString, realBooleanValue.toString(), modifiedBooleanValue.toString(),
+                firstPrivateMethodReturnType, secondPrivateMethodReturnType));
     }
 }
